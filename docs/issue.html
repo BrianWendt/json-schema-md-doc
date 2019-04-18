@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JSON Schema to Markdown</title>
+        <script src="lib/jquery-3.4.0.min.js"></script>
+        <script src="lib/issue.js"></script>
+        <link href="lib/bootstrap.min.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="container-fluid">
+            <h1>JSON Schema to Markdown</h1>
+            <p class="lead">Report Issue</p>
+            <div class="row">
+                <div class="col-md-6 mt-2 mb-2">
+                    <h2><b>Step 1:</b> Describe Your Issue</h2>
+                    <div class="form-group">
+                        <textarea class="form-control" id="text" placeholder="What's breaking?" style="height: 100px;"></textarea>
+                    </div>
+                    <h2><b>Step 2:</b> Input Schema</h2>
+                    <div class="form-group">
+                        <textarea class="form-control" id="schema" placeholder="Paste Schema Here" style="height: 200px;">{}</textarea>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-2 mb-2">
+                    <h2>Issue Markdown</h2>
+                    <div class="alert alert-light">
+                        <textarea id="output" class="form-control" style="height: 200px;">output</textarea>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p><b>Step 3:</b> Copy the issue markdown from above.</p>
+                            <p><a href="https://github.com/BrianWendt/json_schema_markdown/issues/new" target="_blank" class="btn btn-primary">Submit Issue on GitHub</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

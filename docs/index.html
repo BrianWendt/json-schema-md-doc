@@ -13,23 +13,31 @@
             <p class="lead">Generate markdown documentation for JSON Schemas</p>
             <div class="row">
                 <div class="col-md-6 mt-2 mb-2">
-                    <h2>Input Schema</h2>
+                    <h2>Input Schema <small>currently only supports <i>draft-7</i></small></h2>
                     <div class="form-group">
                         <textarea class="form-control" id="input" placeholder="Paste Schema Here" style="height: 400px;"></textarea>
                     </div>
                 </div>
                 <div class="col-md-6 mt-2 mb-2">
                     <h2>Output Markdown</h2>
-                    <div class="alert alert-light">
+                    <div class="" style="position: relative;">
                         <textarea id="output" class="form-control" style="height: 400px;">output</textarea>
+                        <div style="position: absolute; bottom: -10px; right: 20px;">
+                            <a id="download" href="#" download="README.md" class="btn btn-success">Download</a>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="card">
-                <p class="card-body">
-                    You may fully customize your output by extending the <code>JSONSchemaMarkdown</code> class to override the rendering methods.<br/>
-                    <a href="https://github.com/BrianWendt/json_schema_markdown">BrianWendt/json_schema_markdown</a> on GitHub.
-                </p>
+                <div class="card-body">
+                    <p><a href="./issue.html" target="_blank" class="btn btn-warning">Submit Issue</a></p>
+                    <p>
+                        You may fully customize your output by extending the <code>JSONSchemaMarkdown</code> class to override the rendering methods.
+                        Download <a href="./lib/JSONSchemaMarkdown.js" target="_blank">JSONSchemaMarkdown.js</a>
+                    </p>
+                    <p>Find the <a href="https://github.com/BrianWendt/json_schema_markdown" target="_blank">BrianWendt/json_schema_markdown</a> project on GitHub.</p>
+                    <p class="small">License: <a href="https://github.com/BrianWendt/json_schema_markdown/blob/master/LICENSE" target="_blank">GNU General Public License v3.0</a></p>
+                </div>
             </div>
         </div>
     </body>

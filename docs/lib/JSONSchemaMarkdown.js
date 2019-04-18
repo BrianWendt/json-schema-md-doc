@@ -414,6 +414,6 @@ class JSONSchemaMarkdown {
     }
 }
 ;
-if(typeof exports !== "undefined"){
-    exports.JSONSchemaMarkdown = JSONSchemaMarkdown;
+if(typeof module !== "undefined"){
+    module.exports.JSONSchemaMarkdown = JSONSchemaMarkdown;
 }

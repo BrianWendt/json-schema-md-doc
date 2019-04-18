@@ -2,7 +2,7 @@
    "name": "json_schema_markdown",
    "author": "Brian Wendt (https://github.com/BrianWendt)",
    "description": "Generate markdown documentation for JSON Schemas",
-   "main": "docs/lib/JSONSchemaMarkdown.js",
+   "main": "./docs/lib/JSONSchemaMarkdown.js",
    "keywords": [
       "json-schema"
    ],

@@ -45,8 +45,6 @@ class JSONSchemaMarkdown {
             data.type.map(type => {
                 this.getTypeMethod(type)(name, data, level, path);
             });
-        } else {
-            console.log(name, typeof data.type);
         }
         if (this.notEmpty(data.definitions)) {
             path += "definitions/";
@@ -80,7 +78,6 @@ class JSONSchemaMarkdown {
                 ;
             default:
                 return this.typeUnknown.bind(this);
-                ;
         }
     }
 
@@ -92,8 +89,20 @@ class JSONSchemaMarkdown {
     }
 
     typeArray(name, data, level, path) {
+        this.writeAdditionalItems(data.additionalItems);
+        if (this.notEmpty(data.minItems) || this.notEmpty(data.maxItems)) {
+            this.indent(level);
+            this.markdown += "Item Count: ";
+            this.writeMinMax(data.minItems, data.maxItems);
+        }
         if (this.notEmpty(data.items)) {
             this.writeHeader("Items", level + 1, path + "items/");
+            if (Array.isArray(data.items)) {
+                data.items.map(item => {
+                    this.generateChildren('item', item, level + 1, path + "items/");
+                    this.writeLine("", level);
+                });
+            }
             if (this.notEmpty(data.items.type)) {
                 this.generateChildren('item', data.items, level + 1, path + "items/");
             }
@@ -107,9 +116,27 @@ class JSONSchemaMarkdown {
     }
 
     typeNumber(name, data, level, path) {
+        if (this.notEmpty(data.minimum) || this.notEmpty(data.maximum)) {
+            this.indent(level);
+            this.markdown += "Range: ";
+            this.writeMinMax(data.minimum, data.maximum);
+        }
+        if (this.notEmpty(data.exclusiveMinimum) || this.notEmpty(data.exclusiveMaximum)) {
+            this.indent(level);
+            this.markdown += "Exlusive Range: ";
+            this.writeMinMax(data.exclusiveMinimum, data.exclusiveMaximum);
+        }
+        this.writeMultipleOf(data.multipleOf);
     }
 
     typeString(name, data, level, path) {
+        this.writeFormat(data.format, level);
+        this.writePattern(data.pattern, level);
+        if (this.notEmpty(data.minLength) || this.notEmpty(data.maxLength)) {
+            this.indent(level);
+            this.markdown += "Length: ";
+            this.writeMinMax(data.minLength, data.maxLength);
+        }
         this.writeEnum(data.enum);
     }
 
@@ -118,6 +145,15 @@ class JSONSchemaMarkdown {
         if (this.empty(data.properties)) {
             throw "`object` missing properties at " + path;
         }
+        this.writeAdditionalProperties(data.additionalProperties, level);
+        
+        if (this.notEmpty(data.minProperties) || this.notEmpty(data.maxProperties)) {
+            this.indent(level);
+            this.markdown += "Property Count: ";
+            this.writeMinMax(data.minProperties, data.maxProperties);
+        }
+        
+        this.writePropertyNames(data.propertyNames, level);
         path += "properties/";
         this.writeHeader("Properties", level + 1, path);
         for (var propName in data.properties) {
@@ -126,7 +162,8 @@ class JSONSchemaMarkdown {
             if (name.length > 0) {
                 propName = name + "->" + propName;
             }
-            this.writePropertyName(propName, property, level, propPath);
+            var isRequired = (required.indexOf(propName) > -1);
+            this.writePropertyName(propName, property, level, propPath, isRequired);
             this.generateChildren(propName, property, level + 1, propPath);
             this.writeLine(" ", level);
         }
@@ -154,6 +191,40 @@ class JSONSchemaMarkdown {
         this.markdown += (">").repeat(level - 1);
     }
 
+    valueBool(bool) {
+        if (typeof bool === "string") {
+            return bool;
+        } else {
+            return (bool) ? "true" : "false";
+        }
+    }
+
+    valueFormat(value) {
+        if (value === "true" || value === "false") {
+            return '_' + value + '_';
+        } else if (typeof value === "boolean") {
+            return '_' + this.valueBool(value) + '_';
+        } else if (typeof value === "string") {
+            return '"' + value + '"';
+        } else {
+            return "`" + value + "`";
+        }
+    }
+
+    writeAdditionalItems(value, level) {
+        if (this.notEmpty(value)) {
+            this.indent(level);
+            this.markdown += "Additional Items: `" + this.valueBool(value) + "`\n";
+        }
+    }
+
+    writeAdditionalProperties(value, level) {
+        if (this.notEmpty(value)) {
+            this.indent(level);
+            this.markdown += "Additional Properties: `" + this.valueBool(value) + "`\n";
+        }
+    }
+
     writeComment(text, level, path) {
         if (this.notEmpty(text)) {
             this.indent(level);
@@ -163,12 +234,7 @@ class JSONSchemaMarkdown {
 
     writeDefault(value) {
         if (this.notEmpty(value)) {
-            if (value === "true" || value === "false") {
-                value = '_' + value + '_';
-            } else if (typeof value === "string") {
-                value = '"' + value + '"';
-            }
-            this.markdown += "Default: " + value + "\n";
+            this.markdown += "Default: " + this.valueFormat(value) + "\n";
         }
     }
 
@@ -181,28 +247,23 @@ class JSONSchemaMarkdown {
 
     writeEnum(list, level) {
         if (this.notEmpty(list)) {
-            this.markdown += "Enum values: [" + list.map(value => {
-                if (value === "true" || value === "false") {
-                    return '_' + value + '_';
-                } else if (typeof value === "string") {
-                    return '"' + value + '"';
-                } else {
-                    return "`" + value + "`";
-                }
+            this.markdown += "Enum Values: [" + list.map(value => {
+                return this.valueFormat(value);
             }).join(", ") + "]\n";
+        }
+    }
+
+    writeFormat(text, level) {
+        if (this.notEmpty(text)) {
+            this.indent(level);
+            this.markdown += "Format: " + text + "\n\n";
         }
     }
 
     writeExamples(list) {
         if (this.notEmpty(list)) {
             this.markdown += "Examples: " + list.map(value => {
-                if (value === "true" || value === "false") {
-                    return '_' + value + '_';
-                } else if (typeof value === "string") {
-                    return '`"' + value + '"`';
-                } else {
-                    return "`" + value + "`";
-                }
+                return this.valueFormat(value);
             }).join(", ") + "\n";
         }
     }
@@ -222,9 +283,56 @@ class JSONSchemaMarkdown {
         this.markdown += text + "\n";
     }
 
-    writePropertyName(prop, property, level, path) {
+    writeMinMax(min, max) {
+        if (this.notEmpty(min) && this.notEmpty(max)) {
+            this.markdown += "between " + min + " and " + max + "\n";
+        } else if (this.notEmpty(min)) {
+            this.markdown += " &ge; " + min + "\n";
+        } else if (this.notEmpty(max)) {
+            this.markdown += " &le; " + max + "\n";
+        }
+    }
+
+    writeMinMaxExlusive(min, max) {
+        if (this.notEmpty(min)) {
+            this.markdown += " > " + min + "\n";
+        }
+        if (this.notEmpty(min) && this.notEmpty(max)) {
+            this.markdown += " & ";
+        }
+        if (this.notEmpty(max)) {
+            this.markdown += " < " + max + "\n";
+        }
+    }
+
+    writeMultipleOf(number, level) {
+        if (this.notEmpty(number)) {
+            this.indent(level);
+            this.markdown += "Multiple Of: `" + number + "`\n\n";
+        }
+    }
+
+    writePattern(text, level) {
+        if (this.notEmpty(text)) {
+            this.indent(level);
+            this.markdown += "Pattern: `" + text + "`\n\n";
+        }
+    }
+    
+    writePropertyNames(data, level){
+        if (this.notEmpty(data) && this.notEmpty(data.pattern)) {
+            this.indent(level);
+            this.markdown += "Property Names Pattern: `" + data.pattern + "`\n\n";
+        }
+    }
+
+    writePropertyName(prop, property, level, path, required = false) {
         this.indent(level);
-        this.markdown += "**" + prop + "**\n";
+        this.markdown += "**" + prop + "**";
+        if(required){
+            this.markdown += " `required`";
+        }
+        this.markdown += "\n";
     }
 
     writeRef(text, level) {
@@ -233,7 +341,7 @@ class JSONSchemaMarkdown {
             this.markdown += "$ref: [" + text + "](" + this.refLink(text) + ")\n";
         }
     }
-    
+
     writeSchema(text, level) {
         if (this.notEmpty(text)) {
             this.indent(level);
@@ -249,6 +357,13 @@ class JSONSchemaMarkdown {
             } else {
                 this.markdown += "Type: `" + text + "`\n";
             }
+        }
+    }
+
+    writeUniqueItems(value, level) {
+        if (this.notEmpty(value)) {
+            this.indent(level);
+            this.markdown += "Unique Items: `" + this.valueBool(value) + "`\n";
         }
     }
 

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JSON Schema to Markdown</title>
+        <script src="lib/jquery-3.4.0.min.js"></script>
+        <script src="JSONSchemaMarkdown.js"></script>
+        <script src="index.js"></script>
+        <link href="lib/bootstrap.min.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Input Schema</h2>
+                    <div class="form-group mt-2 mb-2">
+                        <textarea class="form-control" id="input" placeholder="Paste Schema Here" style="height: 300px;"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h2>Output Markdown</h2>
+                    <div class="mt-2 mb-2 alert alert-light">
+                        <textarea id="output" class="form-control" style="height: 300px;">output</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -3,6 +3,8 @@ class JSONSchemaMarkdown {
         this.schema = null;
         this.markdown = null;
         this.errors = [];
+        this.indentChar = "\t"; //&emsp;&emsp;
+        this.objectNotation = "&thinsp;.&thinsp;";
     }
     load(schema) {
         this.errors = [];
@@ -29,6 +31,7 @@ class JSONSchemaMarkdown {
         if (this.errors.length > 0) {
             return this.errors.join("\n");
         } else {
+            this.markdown += "\n_Generated with [json_schema_markdown](https://brianwendt.github.io/json_schema_markdown/)_"
             return this.markdown;
         }
     }
@@ -53,7 +56,7 @@ class JSONSchemaMarkdown {
                 var defPath = path + defName + "/";
                 var definition = data.definitions[defName];
                 this.generateChildren(defName, definition, level + 2, defPath);
-                this.writeLine(" ", level);
+                //this.writeLine(" ");
             }
         }
     }
@@ -83,9 +86,19 @@ class JSONSchemaMarkdown {
 
     refLink(ref) {
         if (ref[0] !== '#' && ref.substring(0, 4).toLowerCase() !== "http") {
-            ref = '#' + ref;
+            ref = '#' + this.slugify(ref);
         }
         return ref;
+    }
+
+    slugify(string) {
+        return string.toString().toLowerCase()
+                .replace(/\s+/g, '-') // Replace spaces with -
+                .replace(/&/g, '-and-') // Replace & with ‘and’
+                .replace(/[^\w-.]+/g, '') // Remove all non-word characters
+                .replace(/--+/g, '-') // Replace multiple - with single -
+                .replace(/^-+/, '') // Trim - from start of text
+                .replace(/-+$/, '') // Trim - from end of text
     }
 
     typeArray(name, data, level, path) {
@@ -96,14 +109,15 @@ class JSONSchemaMarkdown {
             this.writeMinMax(data.minItems, data.maxItems);
         }
         if (this.notEmpty(data.items)) {
-            this.writeHeader("Items", level + 1, path + "items/");
+            this.writeSectionHeader("Items", level + 1, path + "items/");
             if (Array.isArray(data.items)) {
+                // Multiple Item Validations / "Tuple validation"
                 data.items.map(item => {
                     this.generateChildren('item', item, level + 1, path + "items/");
                     this.writeLine("", level);
                 });
-            }
-            if (this.notEmpty(data.items.type)) {
+            } else if (this.notEmpty(data.items)) {
+                //Normal Validation
                 this.generateChildren('item', data.items, level + 1, path + "items/");
             }
         }
@@ -137,7 +151,7 @@ class JSONSchemaMarkdown {
             this.markdown += "Length: ";
             this.writeMinMax(data.minLength, data.maxLength);
         }
-        this.writeEnum(data.enum);
+
     }
 
     typeObject(name, data, level, path) {
@@ -146,26 +160,25 @@ class JSONSchemaMarkdown {
             throw "`object` missing properties at " + path;
         }
         this.writeAdditionalProperties(data.additionalProperties, level);
-        
+
         if (this.notEmpty(data.minProperties) || this.notEmpty(data.maxProperties)) {
             this.indent(level);
             this.markdown += "Property Count: ";
             this.writeMinMax(data.minProperties, data.maxProperties);
         }
-        
+
         this.writePropertyNames(data.propertyNames, level);
         path += "properties/";
-        this.writeHeader("Properties", level + 1, path);
+        this.writeSectionHeader("Properties", level + 1, path);
         for (var propName in data.properties) {
             var propPath = path + propName + "/";
             var property = data.properties[propName];
             if (name.length > 0) {
-                propName = name + "->" + propName;
+                propName = name + this.objectNotation + propName;
             }
             var isRequired = (required.indexOf(propName) > -1);
-            this.writePropertyName(propName, property, level, propPath, isRequired);
-            this.generateChildren(propName, property, level + 1, propPath);
-            this.writeLine(" ", level);
+            this.writePropertyName(propName, property, level + 1, propPath, isRequired);
+            this.generateChildren(propName, property, level + 2, propPath);
         }
     }
 
@@ -178,6 +191,7 @@ class JSONSchemaMarkdown {
         this.writeComment(data["$comment"], level, path);
         this.writeType(data.type, level, path);
         this.writeExamples(data.examples, level, path);
+        this.writeEnum(data.enum, level);
         this.writeDefault(data.default, level, path);
     }
 
@@ -187,8 +201,8 @@ class JSONSchemaMarkdown {
 
     // Markdown writing methods
 
-    indent(level) {
-        this.markdown += (">").repeat(level - 1);
+    indent(level, indentChar = false, listChar = ' - ') {
+        this.markdown += (indentChar || this.indentChar).repeat(level - 1) + listChar;
     }
 
     valueBool(bool) {
@@ -205,7 +219,7 @@ class JSONSchemaMarkdown {
         } else if (typeof value === "boolean") {
             return '_' + this.valueBool(value) + '_';
         } else if (typeof value === "string") {
-            return '"' + value + '"';
+            return '_"' + value + '"_';
         } else {
             return "`" + value + "`";
         }
@@ -225,15 +239,16 @@ class JSONSchemaMarkdown {
         }
     }
 
-    writeComment(text, level, path) {
+    writeComment(text, level) {
         if (this.notEmpty(text)) {
             this.indent(level);
-            this.markdown += "$comment: `" + text + "`\n";
+            this.markdown += "&#36;comment: _" + text + "_\n";
         }
     }
 
-    writeDefault(value) {
+    writeDefault(value, level) {
         if (this.notEmpty(value)) {
+            this.indent(level);
             this.markdown += "Default: " + this.valueFormat(value) + "\n";
         }
     }
@@ -241,46 +256,60 @@ class JSONSchemaMarkdown {
     writeDescription(text, level) {
         if (this.notEmpty(text)) {
             this.indent(level);
-            this.markdown += "> " + text + "\n\n";
+            this.markdown += "_" + text.replace("\n", "<br>") + "_\n";
         }
     }
 
     writeEnum(list, level) {
         if (this.notEmpty(list)) {
-            this.markdown += "Enum Values: [" + list.map(value => {
-                return this.valueFormat(value);
-            }).join(", ") + "]\n";
+            this.indent(level);
+            this.markdown += "Enum Values: \n";
+            this.writeList(list, level + 1);
         }
     }
 
     writeFormat(text, level) {
         if (this.notEmpty(text)) {
             this.indent(level);
-            this.markdown += "Format: " + text + "\n\n";
+            this.markdown += "Format: " + text + "\n";
         }
     }
 
-    writeExamples(list) {
+    writeExamples(list, level) {
         if (this.notEmpty(list)) {
-            this.markdown += "Examples: " + list.map(value => {
-                return this.valueFormat(value);
-            }).join(", ") + "\n";
+            this.indent(level);
+            this.markdown += "Examples: \n";
+            this.writeList(list, level + 1);
         }
     }
 
     writeHeader(text, level = 1) {
         if (this.notEmpty(text)) {
-            this.markdown += ("#").repeat(level) + " " + text + "\n";
+            this.indent(level);
+            this.markdown += ("#").repeat(Math.min(level, 5));
+            this.markdown += " " + text + "\n";
     }
     }
 
     writeId(text, level) {
-        this.writeHeader(text, level + 2);
+        if (this.notEmpty(text)) {
+            this.indent(level);
+            this.markdown += '<b id="' + this.slugify(text) + '">&#36;id: ' + text + "</b>\n";
+        }
     }
 
     writeLine(text = "", level = 1) {
         this.indent(level);
         this.markdown += text + "\n";
+    }
+
+    writeList(list, level = 1) {
+        if (this.notEmpty(list)) {
+            list.map((item, idx) => {
+                this.indent(level, false, " " + (idx + 1));
+                this.markdown += ". " + this.valueFormat(item) + "\n";
+            });
+    }
     }
 
     writeMinMax(min, max) {
@@ -308,28 +337,28 @@ class JSONSchemaMarkdown {
     writeMultipleOf(number, level) {
         if (this.notEmpty(number)) {
             this.indent(level);
-            this.markdown += "Multiple Of: `" + number + "`\n\n";
+            this.markdown += "Multiple Of: `" + number + "`\n";
         }
     }
 
     writePattern(text, level) {
         if (this.notEmpty(text)) {
             this.indent(level);
-            this.markdown += "Pattern: `" + text + "`\n\n";
+            this.markdown += "Pattern: `" + text + "`\n";
         }
     }
-    
-    writePropertyNames(data, level){
+
+    writePropertyNames(data, level) {
         if (this.notEmpty(data) && this.notEmpty(data.pattern)) {
             this.indent(level);
-            this.markdown += "Property Names Pattern: `" + data.pattern + "`\n\n";
+            this.markdown += "Property Names Pattern: `" + data.pattern + "`\n";
         }
     }
 
     writePropertyName(prop, property, level, path, required = false) {
         this.indent(level);
         this.markdown += "**" + prop + "**";
-        if(required){
+        if (required) {
             this.markdown += " `required`";
         }
         this.markdown += "\n";
@@ -338,15 +367,22 @@ class JSONSchemaMarkdown {
     writeRef(text, level) {
         if (this.notEmpty(text)) {
             this.indent(level);
-            this.markdown += "$ref: [" + text + "](" + this.refLink(text) + ")\n";
+            this.markdown += "&#36;ref: [" + text + "](" + this.refLink(text) + ")\n";
         }
     }
 
     writeSchema(text, level) {
         if (this.notEmpty(text)) {
             this.indent(level);
-            this.markdown += "$schema: [" + text + "](" + this.refLink(text) + ")\n";
+            this.markdown += "&#36;schema: [" + text + "](" + this.refLink(text) + ")\n";
         }
+    }
+
+    writeSectionHeader(text, level = 1) {
+        if (this.notEmpty(text)) {
+            this.indent(level - 1);
+            this.markdown += '**_' + text + "_**\n";
+    }
     }
 
     writeType(text, level) {
@@ -378,3 +414,6 @@ class JSONSchemaMarkdown {
     }
 }
 ;
+if(typeof exports !== "undefined"){
+    exports.JSONSchemaMarkdown = JSONSchemaMarkdown;
+}

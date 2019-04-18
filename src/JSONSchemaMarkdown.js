@@ -85,7 +85,7 @@ class JSONSchemaMarkdown {
     }
 
     refLink(ref) {
-        if (ref[0] !== '#') {
+        if (ref[0] !== '#' && ref.substring(0, 4).toLowerCase() !== "http") {
             ref = '#' + ref;
         }
         return ref;
@@ -134,12 +134,12 @@ class JSONSchemaMarkdown {
 
     typeGeneric(name, data, level, path) {
         this.writeHeader(data.title, level, path);
+        this.writeSchema(data["$schema"]);
         this.writeRef(data["$ref"], level, path);
         this.writeId(data["$id"], level, path);
         this.writeDescription(data.description, level, path);
         this.writeComment(data["$comment"], level, path);
         this.writeType(data.type, level, path);
-        this.indent(level);
         this.writeExamples(data.examples, level, path);
         this.writeDefault(data.default, level, path);
     }
@@ -231,6 +231,13 @@ class JSONSchemaMarkdown {
         if (this.notEmpty(text)) {
             this.indent(level);
             this.markdown += "$ref: [" + text + "](" + this.refLink(text) + ")\n";
+        }
+    }
+    
+    writeSchema(text, level) {
+        if (this.notEmpty(text)) {
+            this.indent(level);
+            this.markdown += "$schema: [" + text + "](" + this.refLink(text) + ")\n";
         }
     }
 

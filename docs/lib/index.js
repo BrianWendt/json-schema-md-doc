@@ -11,6 +11,6 @@ function run(){
     Doc.load($input.val());
     console.log(Doc.schema);
     $output.val(Doc.generate());
-    $input.height( $input[0].scrollHeight );
-    $output.height( $output[0].scrollHeight );
+    //$input.height( $input[0].scrollHeight );
+    //$output.height( $output[0].scrollHeight );
 }

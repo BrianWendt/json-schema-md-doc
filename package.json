@@ -1,0 +1,15 @@
+{
+   "name": "json_schema_markdown",
+   "author": "Brian Wendt (https://github.com/BrianWendt)",
+   "description": "Generate markdown documentation for JSON Schemas",
+   "keywords": [
+      "json-schema"
+   ],
+   "version": "0.1.1",
+   "repository": {
+      "type": "git",
+      "url": "https://github.com/BrianWendt/json_schema_markdown"
+   },
+   "homepage": "https://brianwendt.github.io/json_schema_markdown",
+   "public": true,
+}

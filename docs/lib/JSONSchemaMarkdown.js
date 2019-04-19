@@ -22,7 +22,7 @@ class JSONSchemaMarkdown {
         this.markdown = "";
         if (this.errors.length < 1) {
             try {
-                this.generateChildren("", this.schema, 1, "/");
+                this.generateChildren("", this.schema, 0, "/");
             } catch (e) {
                 console.log(e);
                 this.error(e.toString());
@@ -51,12 +51,11 @@ class JSONSchemaMarkdown {
         }
         if (this.notEmpty(data.definitions)) {
             path += "definitions/";
-            this.writeHeader("definitions", level + 1, path);
+            this.writeHeader("definitions", level, path);
             for (var defName in data.definitions) {
                 var defPath = path + defName + "/";
                 var definition = data.definitions[defName];
-                this.generateChildren(defName, definition, level + 2, defPath);
-                //this.writeLine(" ");
+                this.generateChildren(defName, definition, level + 1, defPath);
             }
         }
     }
@@ -98,7 +97,7 @@ class JSONSchemaMarkdown {
                 .replace(/[^\w-.]+/g, '') // Remove all non-word characters
                 .replace(/--+/g, '-') // Replace multiple - with single -
                 .replace(/^-+/, '') // Trim - from start of text
-                .replace(/-+$/, '') // Trim - from end of text
+                .replace(/-+$/, ''); // Trim - from end of text
     }
 
     typeArray(name, data, level, path) {
@@ -169,7 +168,7 @@ class JSONSchemaMarkdown {
 
         this.writePropertyNames(data.propertyNames, level);
         path += "properties/";
-        this.writeSectionHeader("Properties", level + 1, path);
+        this.writeSectionHeader("Properties", level, path);
         for (var propName in data.properties) {
             var propPath = path + propName + "/";
             var property = data.properties[propName];
@@ -202,7 +201,12 @@ class JSONSchemaMarkdown {
     // Markdown writing methods
 
     indent(level, indentChar = false, listChar = ' - ') {
-        this.markdown += (indentChar || this.indentChar).repeat(level - 1) + listChar;
+        if(level > 1){
+            this.markdown += (indentChar || this.indentChar).repeat(level - 1);
+        }
+        if(level > 0){
+             this.markdown += listChar;
+        }
     }
 
     valueBool(bool) {
@@ -286,7 +290,7 @@ class JSONSchemaMarkdown {
     writeHeader(text, level = 1) {
         if (this.notEmpty(text)) {
             this.indent(level);
-            this.markdown += ("#").repeat(Math.min(level, 5));
+            this.markdown += ("#").repeat(Math.min(level+1, 5));
             this.markdown += " " + text + "\n";
     }
     }
@@ -380,7 +384,7 @@ class JSONSchemaMarkdown {
 
     writeSectionHeader(text, level = 1) {
         if (this.notEmpty(text)) {
-            this.indent(level - 1);
+            this.indent(level);
             this.markdown += '**_' + text + "_**\n";
     }
     }

@@ -184,7 +184,7 @@ class JSONSchemaMarkdown {
 
     typeGeneric(name, data, level, path) {
         this.writeHeader(data.title, level, path);
-        this.writeSchema(data["$schema"]);
+        this.writeSchema(data["$schema"], level);
         this.writeRef(data["$ref"], level, path);
         this.writeId(data["$id"], level, path);
         this.writeDescription(data.description, level, path);
@@ -233,79 +233,72 @@ class JSONSchemaMarkdown {
     writeAdditionalItems(value, level) {
         if (this.notEmpty(value)) {
             this.indent(level);
-            this.markdown += "Additional Items: `" + this.valueBool(value) + "`\n";
+            this.writeLine("Additional Items: `" + this.valueBool(value) + "`", level);
         }
     }
 
     writeAdditionalProperties(value, level) {
         if (this.notEmpty(value)) {
-            this.indent(level);
-            this.markdown += "Additional Properties: `" + this.valueBool(value) + "`\n";
+            this.writeLine("Additional Properties: `" + this.valueBool(value) + "`", level);
         }
     }
 
     writeComment(text, level) {
         if (this.notEmpty(text)) {
-            this.indent(level);
-            this.markdown += "&#36;comment: _" + text + "_\n";
+            this.writeLine("&#36;comment: _" + text + "_", level);
         }
     }
 
     writeDefault(value, level) {
         if (this.notEmpty(value)) {
-            this.indent(level);
-            this.markdown += "Default: " + this.valueFormat(value) + "\n";
+            this.writeLine("Default: " + this.valueFormat(value), level);
         }
     }
 
     writeDescription(text, level) {
         if (this.notEmpty(text)) {
-            this.indent(level);
-            this.markdown += "_" + text.replace("\n", "<br>") + "_\n";
+            this.writeLine("_" + text.replace("\n", "<br>") + "_", level);
         }
     }
 
     writeEnum(list, level) {
         if (this.notEmpty(list)) {
-            this.indent(level);
-            this.markdown += "Enum Values: \n";
+            this.writeLine("Enum Values: ", level);
             this.writeList(list, level + 1);
         }
     }
 
     writeFormat(text, level) {
         if (this.notEmpty(text)) {
-            this.indent(level);
-            this.markdown += "Format: " + text + "\n";
+            this.writeLine('Format: "' + text + '"', level);
         }
     }
 
     writeExamples(list, level) {
         if (this.notEmpty(list)) {
-            this.indent(level);
-            this.markdown += "Examples: \n";
+            this.writeLine(this.markdown += "Examples: ", level);
             this.writeList(list, level + 1);
         }
     }
 
     writeHeader(text, level = 1) {
         if (this.notEmpty(text)) {
-            this.indent(level);
-            this.markdown += ("#").repeat(Math.min(level+1, 5));
-            this.markdown += " " + text + "\n";
+            this.writeLine(("#").repeat(Math.min(level+1, 5)) + " " + text, level);
     }
     }
 
     writeId(text, level) {
         if (this.notEmpty(text)) {
-            this.indent(level);
-            this.markdown += '<b id="' + this.slugify(text) + '">&#36;id: ' + text + "</b>\n";
+            this.writeLine('<b id="' + this.slugify(text) + '">&#36;id: ' + text + "</b>", level);
         }
     }
 
     writeLine(text = "", level = 1) {
         this.indent(level);
         this.markdown += text + "\n";
+        if(level < 1){
+            this.markdown += "\n";
+        }
     }
 
     writeList(list, level = 1) {
@@ -341,22 +334,19 @@ class JSONSchemaMarkdown {
 
     writeMultipleOf(number, level) {
         if (this.notEmpty(number)) {
-            this.indent(level);
-            this.markdown += "Multiple Of: `" + number + "`\n";
+            this.writeLine("Multiple Of: `" + number + "`", level);
         }
     }
 
     writePattern(text, level) {
         if (this.notEmpty(text)) {
-            this.indent(level);
-            this.markdown += "Pattern: `" + text + "`\n";
+            this.writeLine("Pattern: `" + text + "`", level);
         }
     }
 
     writePropertyNames(data, level) {
         if (this.notEmpty(data) && this.notEmpty(data.pattern)) {
-            this.indent(level);
-            this.markdown += "Property Names Pattern: `" + data.pattern + "`\n";
+            this.writeLine("Property Names Pattern: `" + data.pattern + "`", level);
         }
     }
 
@@ -371,40 +361,35 @@ class JSONSchemaMarkdown {
 
     writeRef(text, level) {
         if (this.notEmpty(text)) {
-            this.indent(level);
-            this.markdown += "&#36;ref: [" + text + "](" + this.refLink(text) + ")\n";
+            this.writeLine("&#36;ref: [" + text + "](" + this.refLink(text) + ")", level);
         }
     }
 
     writeSchema(text, level) {
         if (this.notEmpty(text)) {
-            this.indent(level);
-            this.markdown += "&#36;schema: [" + text + "](" + this.refLink(text) + ")\n";
+            this.writeLine("&#36;schema: [" + text + "](" + this.refLink(text) + ")", level);
         }
     }
 
     writeSectionHeader(text, level = 1) {
         if (this.notEmpty(text)) {
-            this.indent(level);
-            this.markdown += '**_' + text + "_**\n";
+            this.writeLine('**_' + text + "_**", level);
     }
     }
 
     writeType(text, level) {
         if (this.notEmpty(text)) {
-            this.indent(level);
             if (Array.isArray(text) && text.length > 1) {
-                this.markdown += "Types: `" + text.join('`, `') + "`\n";
+                this.writeLine("Types: `" + text.join('`, `') + "`", level);
             } else {
-                this.markdown += "Type: `" + text + "`\n";
+                this.writeLine("Type: `" + text + "`", level);
             }
         }
     }
 
     writeUniqueItems(value, level) {
         if (this.notEmpty(value)) {
-            this.indent(level);
-            this.markdown += "Unique Items: `" + this.valueBool(value) + "`\n";
+            this.writeLine("Unique Items: `" + this.valueBool(value) + "`", level);
         }
     }
 

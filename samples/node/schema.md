@@ -1,6 +1,6 @@
 &#36;schema: [http://json-schema.org/draft-07/schema#](http://json-schema.org/draft-07/schema#)
 
-&#36;comment: _version 0.1.4_
+&#36;comment: _version 0.1.5_
 
 Type: `object`
 
@@ -27,6 +27,4 @@ Type: `object`
 		 - <i id="/definitions/address/state">path: /definitions/address/state</i>
 		 - Type: `string`
 
-_Generated with [json-schema-md-doc](https://brianwendt.github.io/json-schema-md-doc/)_
-
-`Documentation Generated Thu Apr 18 2019 23:09:23 GMT-0700 (Mountain Standard Time)`
+_Generated with [json-schema-md-doc](https://brianwendt.github.io/json-schema-md-doc/)_ _Thu Apr 18 2019 23:26:19 GMT-0700 (Mountain Standard Time)_

@@ -6,25 +6,25 @@ Type: `object`
 
 **_Properties_**
 
- - <i id="/billing_address">billing_address</i>
-	 - <i id="/billing_address">path: /billing_address</i>
+ - <i id="/properties/billing_address">billing_address</i>
+	 - <i id="/properties/billing_address">path: /properties/billing_address</i>
 	 - &#36;ref: [#/definitions/address](#/definitions/address)
- - <i id="/shipping_address">shipping_address</i>
-	 - <i id="/shipping_address">path: /shipping_address</i>
+ - <i id="/properties/shipping_address">shipping_address</i>
+	 - <i id="/properties/shipping_address">path: /properties/shipping_address</i>
 	 - &#36;ref: [#/definitions/address](#/definitions/address)
 # definitions
 
  - <i id="/definitions/address">path: /definitions/address</i>
  - Type: `object`
  - **_Properties_**
-	 - <i id="/definitions/address/street_address">address&thinsp;.&thinsp;street_address</i>
-		 - <i id="/definitions/address/street_address">path: /definitions/address/street_address</i>
+	 - <i id="/definitions/address/properties/street_address">address&thinsp;.&thinsp;street_address</i>
+		 - <i id="/definitions/address/properties/street_address">path: /definitions/address/properties/street_address</i>
 		 - Type: `string`
-	 - <i id="/definitions/address/city">address&thinsp;.&thinsp;city</i>
-		 - <i id="/definitions/address/city">path: /definitions/address/city</i>
+	 - <i id="/definitions/address/properties/city">address&thinsp;.&thinsp;city</i>
+		 - <i id="/definitions/address/properties/city">path: /definitions/address/properties/city</i>
 		 - Type: `string`
-	 - <i id="/definitions/address/state">address&thinsp;.&thinsp;state</i>
-		 - <i id="/definitions/address/state">path: /definitions/address/state</i>
+	 - <i id="/definitions/address/properties/state">address&thinsp;.&thinsp;state</i>
+		 - <i id="/definitions/address/properties/state">path: /definitions/address/properties/state</i>
 		 - Type: `string`
 
-_Generated with [json-schema-md-doc](https://brianwendt.github.io/json-schema-md-doc/)_ _Thu Apr 18 2019 23:26:19 GMT-0700 (Mountain Standard Time)_
+_Generated with [json-schema-md-doc](https://brianwendt.github.io/json-schema-md-doc/)_ _Thu Apr 18 2019 23:32:31 GMT-0700 (Mountain Standard Time)_

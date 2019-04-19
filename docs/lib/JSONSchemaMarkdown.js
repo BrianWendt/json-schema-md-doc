@@ -23,7 +23,7 @@ class JSONSchemaMarkdown {
         this.markdown = "";
         if (this.errors.length < 1) {
             try {
-                this.generateChildren("", this.schema, 0, "/");
+                this.generateChildren("", this.schema, 0, "");
             } catch (e) {
                 console.log(e);
                 this.error(e.toString());
@@ -51,10 +51,10 @@ class JSONSchemaMarkdown {
             });
         }
         if (this.notEmpty(data.definitions)) {
-            path += "definitions/";
+            path += "/definitions";
             this.writeHeader("definitions", level, path);
             for (var defName in data.definitions) {
-                var defPath = path + defName + "/";
+                var defPath = path + "/" + defName;
                 var definition = data.definitions[defName];
                 this.generateChildren(defName, definition, level + 1, defPath);
             }
@@ -109,16 +109,16 @@ class JSONSchemaMarkdown {
             this.writeMinMax(data.minItems, data.maxItems);
         }
         if (this.notEmpty(data.items)) {
-            this.writeSectionHeader("Items", level + 1, path + "items/");
+            this.writeSectionHeader("Items", level + 1, path + "/items");
             if (Array.isArray(data.items)) {
                 // Multiple Item Validations / "Tuple validation"
                 data.items.map(item => {
-                    this.generateChildren('item', item, level + 1, path + "items/");
+                    this.generateChildren('item', item, level + 1, path + "/items");
                     this.writeLine("", level);
                 });
             } else if (this.notEmpty(data.items)) {
                 //Normal Validation
-                this.generateChildren('item', data.items, level + 1, path + "items/");
+                this.generateChildren('item', data.items, level + 1, path + "/items");
             }
         }
     }
@@ -169,8 +169,9 @@ class JSONSchemaMarkdown {
 
         this.writePropertyNames(data.propertyNames, level);
         this.writeSectionHeader("Properties", level, path);
+        path += "/properties";
         for (var propName in data.properties) {
-            var propPath = path + propName + "/";
+            var propPath = path + "/" + propName;
             var property = data.properties[propName];
             if (name.length > 0) {
                 propName = name + this.objectNotation + propName;
@@ -352,7 +353,6 @@ class JSONSchemaMarkdown {
 
     writePropertyName(prop, property, level, path, required = false) {
         this.indent(level);
-        path = path.substring(0, path.length - 1);
         this.markdown += '<i id="' + path + '">' + prop + '</i>'
         if (required) {
             this.markdown += " `required`";
@@ -367,7 +367,6 @@ class JSONSchemaMarkdown {
     }
     
     writePath(level, path){
-        path = path.substring(0, path.length - 1);
         if(this.notEmpty(path)){
             this.writeLine('<i id="' + path + '">path: ' + path + '</i>', level);
         }

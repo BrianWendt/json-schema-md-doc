@@ -3,8 +3,9 @@ class JSONSchemaMarkdown {
         this.schema = null;
         this.markdown = null;
         this.errors = [];
-        this.indentChar = "\t"; //&emsp;&emsp;
+        this.indentChar = "\t";
         this.objectNotation = "&thinsp;.&thinsp;";
+        this.footer = "\n_Generated with [json-schema-md-doc](https://brianwendt.github.io/json-schema-md-doc/)_";
     }
     load(schema) {
         this.errors = [];
@@ -31,7 +32,7 @@ class JSONSchemaMarkdown {
         if (this.errors.length > 0) {
             return this.errors.join("\n");
         } else {
-            this.markdown += "\n_Generated with [json_schema_markdown](https://brianwendt.github.io/json_schema_markdown/)_"
+            this.markdown += this.footer;
             return this.markdown;
         }
     }

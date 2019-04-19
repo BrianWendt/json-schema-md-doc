@@ -12,7 +12,7 @@ $(document).ready(function () {
 });
 
 function run() {
-    var markdown = "**Describe Your Issue**";
+    var markdown = "**Describe Your Issue**\n";
     markdown += $text.val() + "\n\n";
     markdown += "**Schema**\n";
     var schema = $schema.val();

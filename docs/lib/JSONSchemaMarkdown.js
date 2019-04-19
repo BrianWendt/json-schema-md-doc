@@ -168,7 +168,6 @@ class JSONSchemaMarkdown {
         }
 
         this.writePropertyNames(data.propertyNames, level);
-        path += "properties/";
         this.writeSectionHeader("Properties", level, path);
         for (var propName in data.properties) {
             var propPath = path + propName + "/";
@@ -183,6 +182,7 @@ class JSONSchemaMarkdown {
     }
 
     typeGeneric(name, data, level, path) {
+        this.writePath(level, path);
         this.writeHeader(data.title, level, path);
         this.writeSchema(data["$schema"], level);
         this.writeRef(data["$ref"], level, path);
@@ -281,7 +281,7 @@ class JSONSchemaMarkdown {
         }
     }
 
-    writeHeader(text, level = 1) {
+    writeHeader(text, level = 1, path) {
         if (this.notEmpty(text)) {
             this.writeLine(("#").repeat(Math.min(level+1, 5)) + " " + text, level);
     }
@@ -352,7 +352,8 @@ class JSONSchemaMarkdown {
 
     writePropertyName(prop, property, level, path, required = false) {
         this.indent(level);
-        this.markdown += "**" + prop + "**";
+        path = path.substring(0, path.length - 1);
+        this.markdown += '<i id="' + path + '">' + prop + '</i>'
         if (required) {
             this.markdown += " `required`";
         }
@@ -362,6 +363,13 @@ class JSONSchemaMarkdown {
     writeRef(text, level) {
         if (this.notEmpty(text)) {
             this.writeLine("&#36;ref: [" + text + "](" + this.refLink(text) + ")", level);
+        }
+    }
+    
+    writePath(level, path){
+        path = path.substring(0, path.length - 1);
+        if(this.notEmpty(path)){
+            this.writeLine('<i id="' + path + '">path: ' + path + '</i>', level);
         }
     }
 

@@ -7,6 +7,7 @@
       "json-schema"
    ],
    "version": "0.1.4",
+   "license" : "See LICENSE file",
    "repository": {
       "type": "git",
       "url": "https://github.com/BrianWendt/json-schema-md-doc"

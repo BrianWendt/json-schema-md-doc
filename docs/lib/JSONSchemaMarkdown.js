@@ -277,7 +277,7 @@ class JSONSchemaMarkdown {
 
     writeExamples(list, level) {
         if (this.notEmpty(list)) {
-            this.writeLine(this.markdown += "Examples: ", level);
+            this.writeLine("Examples: ", level);
             this.writeList(list, level + 1);
         }
     }

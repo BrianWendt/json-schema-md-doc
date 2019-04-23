@@ -13,7 +13,8 @@
         "url": "https://github.com/BrianWendt/json-schema-md-doc"
     },
     "scripts": {
-        "doc": "./node_modules/.bin/jsdoc -R ./README.md -c ./scripts/jsdoc_config.json"
+        "doc": "./node_modules/.bin/jsdoc -R ./README.md -c ./scripts/jsdoc_config.json",
+        "npm": "node ./scripts/npm.js"
     },
     "homepage": "https://brianwendt.github.io/json-schema-md-doc",
     "public": true,

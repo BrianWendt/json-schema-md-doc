@@ -77,3 +77,4 @@ typings/
 
 # Local Dev Files
 *.bat
+test/

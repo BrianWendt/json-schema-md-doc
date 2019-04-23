@@ -1,17 +1,24 @@
 {
-   "name": "json-schema-md-doc",
-   "author": "Brian Wendt (https://github.com/BrianWendt)",
-   "description": "Generate markdown documentation for JSON Schemas",
-   "main": "./docs/lib/JSONSchemaMarkdown.js",
-   "keywords": [
-      "json-schema"
-   ],
-   "version": "0.1.6",
-   "license" : "See LICENSE file",
-   "repository": {
-      "type": "git",
-      "url": "https://github.com/BrianWendt/json-schema-md-doc"
-   },
-   "homepage": "https://brianwendt.github.io/json-schema-md-doc",
-   "public": true
+    "name": "json-schema-md-doc",
+    "author": "Brian Wendt (https://github.com/BrianWendt)",
+    "description": "Generate markdown documentation for JSON Schemas",
+    "main": "./docs/lib/JSONSchemaMarkdown.js",
+    "keywords": [
+        "json-schema"
+    ],
+    "version": "0.1.6",
+    "license": "See LICENSE file",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/BrianWendt/json-schema-md-doc"
+    },
+    "scripts": {
+        "doc": "./node_modules/.bin/jsdoc -R ./README.md -c ./scripts/jsdoc_config.json"
+    },
+    "homepage": "https://brianwendt.github.io/json-schema-md-doc",
+    "public": true,
+    "dependencies": {
+        "docdash": "^1.1.0",
+        "jsdoc": "^3.5.5"
+    }
 }

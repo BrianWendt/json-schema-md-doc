@@ -1,5 +1,50 @@
-/**
- * @author Brian Wendt <brianwendt@users.noreply.github.com>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>JSONSchemaMarkdown.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://github.com/brianwendt/json-schema-md-doc" target="_blank" class="menu-item" id="website_link" >GitHub</a></h2><h3>Classes</h3><ul><li><a href="JSONSchemaMarkdown.html">JSONSchemaMarkdown</a><ul class='methods'><li data-type='method'><a href="JSONSchemaMarkdown.html#.doc">doc</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#load">load</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#generate">generate</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#generateChildren">generateChildren</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#typeGeneric">typeGeneric</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#typeArray">typeArray</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#typeBoolean">typeBoolean</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#typeNull">typeNull</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#typeNumber">typeNumber</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#typeString">typeString</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#typeObject">typeObject</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#typeUnknown">typeUnknown</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeAdditionalItems">writeAdditionalItems</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeAdditionalProperties">writeAdditionalProperties</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeComment">writeComment</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeDefault">writeDefault</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeDescription">writeDescription</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeEnum">writeEnum</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeFormat">writeFormat</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeExamples">writeExamples</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeHeader">writeHeader</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeId">writeId</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeList">writeList</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeMinMax">writeMinMax</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeMinMaxExlusive">writeMinMaxExlusive</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeMultipleOf">writeMultipleOf</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writePattern">writePattern</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writePropertyNames">writePropertyNames</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writePropertyName">writePropertyName</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeRef">writeRef</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writePath">writePath</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeSchema">writeSchema</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeSectionName">writeSectionName</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeType">writeType</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeUniqueItems">writeUniqueItems</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#getTypeMethod">getTypeMethod</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#indent">indent</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#valueBool">valueBool</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#valueFormat">valueFormat</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#writeLine">writeLine</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#refLink">refLink</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#slugify">slugify</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#empty">empty</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#notEmpty">notEmpty</a></li><li data-type='method'><a href="JSONSchemaMarkdown.html#error">error</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">JSONSchemaMarkdown.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @author Brian Wendt &lt;brianwendt@users.noreply.github.com>
  * @link https://github.com/BrianWendt/json-schema-md-doc
  */
 
@@ -39,7 +84,7 @@ class JSONSchemaMarkdown {
          * The character(s) used for object notation.
          * @type {String}
          */
-        this.objectNotation = "&thinsp;.&thinsp;";
+        this.objectNotation = "&amp;thinsp;.&amp;thinsp;";
 
         /**
          * Text to be included in the documentation's footer.
@@ -84,7 +129,7 @@ class JSONSchemaMarkdown {
      */
     generate() {
         this.markdown = "";
-        if (this.errors.length < 1) {
+        if (this.errors.length &lt; 1) {
             try {
                 this.generateChildren("", this.schema, 0, "#");
             } catch (e) {
@@ -279,8 +324,7 @@ class JSONSchemaMarkdown {
     }
 
     /**
-     * This method is a catch for schema types that aren't recongized.
-     * You may want to treat anything resolving to this method as an error.
+     * 
      * @param {name} name The JSON property name
      * @param {Object} data The JS data for the schema
      * @param {integer} level Indentation level
@@ -290,9 +334,7 @@ class JSONSchemaMarkdown {
         console.log('unknown prop type "', data.type, '" at ' + path, data);
     }
 
-    /**
-     * Markdown writing methods
-     */
+    // Markdown writing methods
 
     /**
      * @see https://json-schema.org/understanding-json-schema/reference/array.html#tuple-validation
@@ -302,7 +344,7 @@ class JSONSchemaMarkdown {
     writeAdditionalItems(bool, level) {
         if (this.notEmpty(bool)) {
             if (bool) {
-                this.writeLine("This schema <u>does not</u> accept additional items.", level);
+                this.writeLine("This schema &lt;u>does not&lt;/u> accept additional items.", level);
             } else {
                 this.writeLine("This schema accepts additional items.", level);
             }
@@ -318,7 +360,7 @@ class JSONSchemaMarkdown {
     writeAdditionalProperties(bool, level) {
         if (this.notEmpty(bool)) {
             if (bool) {
-                this.writeLine("This schema <u>does not</u> accept additional properties.", level);
+                this.writeLine("This schema &lt;u>does not&lt;/u> accept additional properties.", level);
             } else {
                 this.writeLine("This schema accepts additional properties.", level);
             }
@@ -334,7 +376,7 @@ class JSONSchemaMarkdown {
      */
     writeComment(comment, level) {
         if (this.notEmpty(comment)) {
-            this.writeLine("**Comment**<br/>_" + comment + "_", level);
+            this.writeLine("**Comment**&lt;br/>_" + comment + "_", level);
         }
     }
 
@@ -360,7 +402,7 @@ class JSONSchemaMarkdown {
      */
     writeDescription(description, level) {
         if (this.notEmpty(description)) {
-            this.writeLine("_" + description.replace("\n", "<br>") + "_", level);
+            this.writeLine("_" + description.replace("\n", "&lt;br>") + "_", level);
         }
     }
 
@@ -423,7 +465,7 @@ class JSONSchemaMarkdown {
      */
     writeId(id, level) {
         if (this.notEmpty(id)) {
-            this.writeLine('<b id="' + this.slugify(id) + '">&#36;id: ' + id + "</b>", level);
+            this.writeLine('&lt;b id="' + this.slugify(id) + '">&amp;#36;id: ' + id + "&lt;/b>", level);
         }
     }
 
@@ -449,12 +491,12 @@ class JSONSchemaMarkdown {
      * 
      */
     writeMinMax(min, max) {
-        if (this.notEmpty(min) && this.notEmpty(max)) {
+        if (this.notEmpty(min) &amp;&amp; this.notEmpty(max)) {
             this.markdown += "between " + min + " and " + max + "\n";
         } else if (this.notEmpty(min)) {
-            this.markdown += " &ge; " + min + "\n";
+            this.markdown += " &amp;ge; " + min + "\n";
         } else if (this.notEmpty(max)) {
-            this.markdown += " &le; " + max + "\n";
+            this.markdown += " &amp;le; " + max + "\n";
         }
     }
 
@@ -468,11 +510,11 @@ class JSONSchemaMarkdown {
         if (this.notEmpty(min)) {
             this.markdown += " > " + min + "\n";
         }
-        if (this.notEmpty(min) && this.notEmpty(max)) {
-            this.markdown += " & ";
+        if (this.notEmpty(min) &amp;&amp; this.notEmpty(max)) {
+            this.markdown += " &amp; ";
         }
         if (this.notEmpty(max)) {
-            this.markdown += " < " + max + "\n";
+            this.markdown += " &lt; " + max + "\n";
         }
     }
 
@@ -508,7 +550,7 @@ class JSONSchemaMarkdown {
      * 
      */
     writePropertyNames(data, level) {
-        if (this.notEmpty(data) && this.notEmpty(data.pattern)) {
+        if (this.notEmpty(data) &amp;&amp; this.notEmpty(data.pattern)) {
             this.writeLine("Property names must match this pattern: `" + data.pattern + "`", level);
         }
     }
@@ -522,7 +564,7 @@ class JSONSchemaMarkdown {
      */
     writePropertyName(prop, level, path, required = false) {
         this.indent(level);
-        this.markdown += '<b id="' + path + '">' + prop + '</b>';
+        this.markdown += '&lt;b id="' + path + '">' + prop + '&lt;/b>';
         if (required) {
             this.markdown += " `required`";
         }
@@ -538,7 +580,7 @@ class JSONSchemaMarkdown {
      */
     writeRef(ref, level) {
         if (this.notEmpty(ref)) {
-            this.writeLine("&#36;ref: [" + ref + "](" + this.refLink(ref) + ")", level);
+            this.writeLine("&amp;#36;ref: [" + ref + "](" + this.refLink(ref) + ")", level);
         }
     }
 
@@ -550,7 +592,7 @@ class JSONSchemaMarkdown {
      */
     writePath(level, path) {
         if (this.notEmpty(path)) {
-            this.writeLine('<i id="' + path + '">path: ' + path + '</i>', level);
+            this.writeLine('&lt;i id="' + path + '">path: ' + path + '&lt;/i>', level);
         }
     }
 
@@ -563,7 +605,7 @@ class JSONSchemaMarkdown {
      */
     writeSchema(uri, level) {
         if (this.notEmpty(uri)) {
-            this.writeLine("&#36;schema: [" + uri + "](" + this.refLink(uri) + ")", level);
+            this.writeLine("&amp;#36;schema: [" + uri + "](" + this.refLink(uri) + ")", level);
         }
     }
 
@@ -587,7 +629,7 @@ class JSONSchemaMarkdown {
      */
     writeType(type, level) {
         if (this.notEmpty(type)) {
-            if (Array.isArray(type) && type.length > 1) {
+            if (Array.isArray(type) &amp;&amp; type.length > 1) {
                 this.writeLine("Types: `" + type.join('`, `') + "`", level);
             } else {
                 this.writeLine("Type: `" + type + "`", level);
@@ -694,7 +736,7 @@ class JSONSchemaMarkdown {
     writeLine(text = "", level = 1) {
         this.indent(level);
         this.markdown += text + "\n";
-        if (level < 1) {
+        if (level &lt; 1) {
             this.markdown += "\n";
     }
     }
@@ -705,7 +747,7 @@ class JSONSchemaMarkdown {
      * @returns {String}
      */
     refLink(ref) {
-        if (ref[0] !== '#' && ref.substring(0, 4).toLowerCase() !== "http") {
+        if (ref[0] !== '#' &amp;&amp; ref.substring(0, 4).toLowerCase() !== "http") {
             ref = '#' + this.slugify(ref);
         }
         return ref;
@@ -719,7 +761,7 @@ class JSONSchemaMarkdown {
     slugify(string) {
         return string.toString().toLowerCase()
                 .replace(/\s+/g, '-') // Replace spaces with -
-                .replace(/&/g, '-and-') // Replace & with ‘and’
+                .replace(/&amp;/g, '-and-') // Replace &amp; with ï¿½andï¿½
                 .replace(/[^\w-.]+/g, '') // Remove all non-word characters
                 .replace(/--+/g, '-') // Replace multiple - with single -
                 .replace(/^-+/, '') // Trim - from start of text
@@ -735,8 +777,8 @@ class JSONSchemaMarkdown {
     empty(value) {
         return typeof value === "undefined"
                 || value === null
-                || (typeof value === "string" && value.length < 1)
-                || (typeof value === "array" && value.length < 1);
+                || (typeof value === "string" &amp;&amp; value.length &lt; 1)
+                || (typeof value === "array" &amp;&amp; value.length &lt; 1);
     }
 
     /**
@@ -765,4 +807,30 @@ class JSONSchemaMarkdown {
  */
 if (typeof module !== "undefined") {
     module.exports.JSONSchemaMarkdown = JSONSchemaMarkdown;
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Apr 23 2019 12:22:37 GMT-0700 (Mountain Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+</body>
+</html>

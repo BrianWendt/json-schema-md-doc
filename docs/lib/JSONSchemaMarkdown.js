@@ -6,7 +6,7 @@
 class JSONSchemaMarkdown {
     constructor() {
         /**
-         * Object containing the schema 
+         * Object containing the schema
          * @type {Object}
          */
         this.schema = null;
@@ -113,7 +113,7 @@ class JSONSchemaMarkdown {
             // set this as base path to children.
             path = "#" + data["$id"];
         }
-        // 
+        //
         this.typeGeneric(name, data, level, path);
 
         if (typeof data.type === "string") {
@@ -133,7 +133,7 @@ class JSONSchemaMarkdown {
             }
         }
     }
-    
+
     /**
      * This is the shared template for all other types.
      * You may want to override this method to change the order of information in your documentation.
@@ -157,7 +157,7 @@ class JSONSchemaMarkdown {
     }
 
     /**
-     * 
+     *
      * @param {name} name The JSON property name
      * @param {Object} data The JS data for the schema
      * @param {integer} level Indentation level
@@ -186,29 +186,29 @@ class JSONSchemaMarkdown {
     }
 
     /**
-     * 
+     *
      * @param {name} name The JSON property name
      * @param {Object} data The JS data for the schema
      * @param {integer} level Indentation level
      * @param {String} path String describing the path of the property
      */
     typeBoolean(name, data, level, path) {
-        
+
     }
 
     /**
-     * 
+     *
      * @param {name} name The JSON property name
      * @param {Object} data The JS data for the schema
      * @param {integer} level Indentation level
      * @param {String} path String describing the path of the property
      */
     typeNull(name, data, level, path) {
-        
+
     }
 
     /**
-     * 
+     *
      * @param {name} name The JSON property name
      * @param {Object} data The JS data for the schema
      * @param {integer} level Indentation level
@@ -229,7 +229,7 @@ class JSONSchemaMarkdown {
     }
 
     /**
-     * 
+     *
      * @param {name} name The JSON property name
      * @param {Object} data The JS data for the schema
      * @param {integer} level Indentation level
@@ -247,7 +247,7 @@ class JSONSchemaMarkdown {
     }
 
     /**
-     * 
+     *
      * @param {name} name The JSON property name
      * @param {Object} data The JS data for the schema
      * @param {integer} level Indentation level
@@ -313,11 +313,11 @@ class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/reference/object.html#property-names
      * @param {boolean} bool
      * @param {Integer} level Indentation level
-     * 
+     *
      */
     writeAdditionalProperties(bool, level) {
         if (this.notEmpty(bool)) {
-            if (bool) {
+            if (!bool) {
                 this.writeLine("This schema <u>does not</u> accept additional properties.", level);
             } else {
                 this.writeLine("This schema accepts additional properties.", level);
@@ -330,7 +330,7 @@ class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/reference/generic.html#comments
      * @param {String} comment The comment
      * @param {Integer} level Indentation level
-     * 
+     *
      */
     writeComment(comment, level) {
         if (this.notEmpty(comment)) {
@@ -343,7 +343,7 @@ class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/reference/generic.html
      * @param {*} value The default value
      * @param {Integer} level Indentation level
-     * 
+     *
      */
     writeDefault(value, level) {
         if (this.notEmpty(value)) {
@@ -356,7 +356,7 @@ class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/reference/generic.html
      * @param {String} description The description may include markdown
      * @param {Integer} level Indentation level
-     * 
+     *
      */
     writeDescription(description, level) {
         if (this.notEmpty(description)) {
@@ -368,7 +368,7 @@ class JSONSchemaMarkdown {
      * Write *.enum as a list.
      * @param {array} list Enumerated values
      * @param {Integer} level Indentation level
-     * 
+     *
      */
     writeEnum(list, level) {
         if (this.notEmpty(list)) {
@@ -381,7 +381,7 @@ class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/reference/string.html#format
      * @param {String} format Format of string
      * @param {Integer} level Indentation level
-     * 
+     *
      */
     writeFormat(format, level) {
         if (this.notEmpty(format)) {
@@ -394,7 +394,7 @@ class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/reference/generic.html
      * @param {array} list Examples
      * @param {Integer} level Indentation level
-     * 
+     *
      */
     writeExamples(list, level) {
         if (this.notEmpty(list)) {
@@ -406,7 +406,7 @@ class JSONSchemaMarkdown {
     /**
      * @param {String} header The header to be written
      * @param {Integer} level Header level [H1, H2, H3, H4, H5]
-     * 
+     *
      */
     writeHeader(header, level = 1) {
         if (this.notEmpty(header)) {
@@ -419,7 +419,7 @@ class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/structuring.html#the-id-property
      * @param {String} id the schema's $id
      * @param {Integer} level Indentation level
-     * 
+     *
      */
     writeId(id, level) {
         if (this.notEmpty(id)) {
@@ -431,7 +431,7 @@ class JSONSchemaMarkdown {
      * Write array as markdown list
      * @param {array} list Mixed array to list
      * @param {Integer} level Indentation level
-     * 
+     *
      */
     writeList(list, level = 1) {
         if (this.notEmpty(list)) {
@@ -446,7 +446,7 @@ class JSONSchemaMarkdown {
      * Write notation for inclusive minimum and maximum.
      * @param {number} min Inclusive minimim
      * @param {number} max Inclusive maximum
-     * 
+     *
      */
     writeMinMax(min, max) {
         if (this.notEmpty(min) && this.notEmpty(max)) {
@@ -462,7 +462,7 @@ class JSONSchemaMarkdown {
      * Write notation for exclusive minimum and maximum.
      * @param {number} min Exclusive minimim
      * @param {number} max Exclusive maximum
-     * 
+     *
      */
     writeMinMaxExlusive(min, max) {
         if (this.notEmpty(min)) {
@@ -480,7 +480,7 @@ class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/reference/numeric.html#multiples
      * @param {Number} number Regular Expression that string must match.
      * @param {Integer} level Indentation level
-     * 
+     *
      */
     writeMultipleOf(number, level) {
         if (this.notEmpty(number)) {
@@ -492,7 +492,7 @@ class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/reference/string.html#regular-expressions
      * @param {String} pattern Regular Expression that string must match.
      * @param {Integer} level Indentation level
-     * 
+     *
      */
     writePattern(pattern, level) {
         if (this.notEmpty(pattern)) {
@@ -505,7 +505,7 @@ class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/reference/object.html#property-names
      * @param {String} data Schema object
      * @param {Integer} level Indentation level
-     * 
+     *
      */
     writePropertyNames(data, level) {
         if (this.notEmpty(data) && this.notEmpty(data.pattern)) {
@@ -518,7 +518,7 @@ class JSONSchemaMarkdown {
      * @param {Integer} level Indentation level
      * @param {String} path String describing the path of the property
      * @param {boolean} required Property is required (True or False [default])
-     * 
+     *
      */
     writePropertyName(prop, level, path, required = false) {
         this.indent(level);
@@ -534,7 +534,7 @@ class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/structuring.html#reuse
      * @param {String} ref $ID, path, or URI
      * @param {Integer} level Indentation level
-     * 
+     *
      */
     writeRef(ref, level) {
         if (this.notEmpty(ref)) {
@@ -546,7 +546,7 @@ class JSONSchemaMarkdown {
      * Writes the path for reference purposes
      * @param {Integer} level Indentation level
      * @param {String} path String describing the path of the property
-     * 
+     *
      */
     writePath(level, path) {
         if (this.notEmpty(path)) {
@@ -559,7 +559,7 @@ class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/basics.html#declaring-a-json-schema
      * @param {String} uri
      * @param {Integer} level Indentation level
-     * 
+     *
      */
     writeSchema(uri, level) {
         if (this.notEmpty(uri)) {
@@ -571,7 +571,7 @@ class JSONSchemaMarkdown {
      * Writes a section name
      * @param {String} name
      * @param {Integer} level Indentation level
-     * 
+     *
      */
     writeSectionName(name, level = 1) {
         if (this.notEmpty(name)) {
@@ -583,7 +583,7 @@ class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/basics.html#the-type-keyword
      * @param {String} type
      * @param {Integer} level Indentation level
-     * 
+     *
      */
     writeType(type, level) {
         if (this.notEmpty(type)) {
@@ -599,7 +599,7 @@ class JSONSchemaMarkdown {
      * @see https://json-schema.org/understanding-json-schema/reference/array.html#uniqueness
      * @param {boolean} bool
      * @param {Integer} level Indentation level
-     * 
+     *
      */
     writeUniqueItems(bool, level) {
         if (this.notEmpty(bool)) {
@@ -612,7 +612,7 @@ class JSONSchemaMarkdown {
     /**
      * Below are utility methods.
     **/
-    
+
     /**
      * Handles finding correct method for different schema types.
      * @param {String} type The schema type/
@@ -641,7 +641,7 @@ class JSONSchemaMarkdown {
      * @param {Integer} level Indentation level
      * @param {string} indentChar Character to use for indentation. Defaults to this.indentChar
      * @param {type} listChar Character to use for list
-     * 
+     *
      */
     indent(level, indentChar = false, listChar = ' - ') {
         if (level > 1) {
@@ -656,7 +656,7 @@ class JSONSchemaMarkdown {
      * Converts boolean to string "true" or "false"
      * @param {type} bool
      * @returns {String}
-     * 
+     *
      */
     valueBool(bool) {
         if (typeof bool === "string") {
@@ -670,7 +670,7 @@ class JSONSchemaMarkdown {
      * Convert mixed values into markdown notation.
      * @param {mixed} value
      * @returns {String}
-     * 
+     *
      */
     valueFormat(value) {
         if (value === "true" || value === "false") {
@@ -689,7 +689,7 @@ class JSONSchemaMarkdown {
      * Handles line break logic.
      * @param {String} text
      * @param {Integer} level Indentation level
-     * 
+     *
      */
     writeLine(text = "", level = 1) {
         this.indent(level);
@@ -698,7 +698,7 @@ class JSONSchemaMarkdown {
             this.markdown += "\n";
     }
     }
-    
+
     /**
      * Prepare $ref as a link.
      * @param {String} ref The schema $ref
@@ -730,7 +730,7 @@ class JSONSchemaMarkdown {
      * Check if value is empty
      * @param {*} value
      * @returns {Boolean}
-     * 
+     *
      */
     empty(value) {
         return typeof value === "undefined"
@@ -743,7 +743,7 @@ class JSONSchemaMarkdown {
      * Check if value is NOT empty
      * @param {*} value
      * @returns {Boolean}
-     * 
+     *
      */
     notEmpty(value) {
         return !this.empty(value);
@@ -752,7 +752,7 @@ class JSONSchemaMarkdown {
     /**
      * Append error to errors array
      * @param {String} error Error message
-     * 
+     *
      */
     error(error) {
         this.errors.push(error);

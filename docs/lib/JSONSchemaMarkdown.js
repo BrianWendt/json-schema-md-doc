@@ -126,10 +126,11 @@ class JSONSchemaMarkdown {
         if (this.notEmpty(data.definitions)) {
             path += "/definitions";
             this.writeHeader("definitions", level, path);
-            for (var defName in data.definitions) {
-                var defPath = path + this.pathDivider + defName;
-                var definition = data.definitions[defName];
-                this.generateChildren(defName, definition, level + 1, defPath);
+            for (var term in data.definitions) {
+                var defPath = path + this.pathDivider + term;
+                this.writeTerm(term, level);
+                this.generateChildren(term, data.definitions[term], level + 1, defPath);
+                this.writeLine("", 0);
             }
         }
     }
@@ -576,7 +577,19 @@ class JSONSchemaMarkdown {
     writeSectionName(name, level = 1) {
         if (this.notEmpty(name)) {
             this.writeLine('**_' + name + "_**", level);
+        }
     }
+
+    /**
+     * Writes a definition term
+     * @param {String} term
+     * @param {Integer} level Indentation level
+     *
+     */
+    writeTerm(term, level) {
+        if (this.notEmpty(term)) {
+            this.writeLine('**_' + term + "_**", level);
+        }
     }
 
     /**

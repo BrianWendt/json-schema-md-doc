@@ -3,7 +3,7 @@
     "recurseDepth": 10,
     "source": {
         "include": [
-            "./docs/lib/JSONSchemaMarkdown.js"
+            "./lib/JSONSchemaMarkdown.js"
         ]
     },
     "sourceType": "module",

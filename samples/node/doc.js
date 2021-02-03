@@ -1,5 +1,5 @@
 //const {JSONSchemaMarkdown} = require('json-schema-md-doc');
-const {JSONSchemaMarkdown} = require('../../src/JSONSchemaMarkdown');
+const {JSONSchemaMarkdown} = require('../../docs/lib/JSONSchemaMarkdown');
 const fs = require("fs");
 const package = require("../../package.json");
 

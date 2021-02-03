@@ -3,7 +3,7 @@
 ## Generate markdown documentation for JSON Schemas
 Try it out at [brianwendt.github.io/json-schema-md-doc](https://brianwendt.github.io/json-schema-md-doc)
 
-Download [JSONSchemaMarkdown.js](https://raw.githubusercontent.com/BrianWendt/json-schema-md-doc/master/src/JSONSchemaMarkdown.js)
+Download [JSONSchemaMarkdown.js](https://raw.githubusercontent.com/BrianWendt/json-schema-md-doc/master/docs/lib/JSONSchemaMarkdown.js)
 
 [Click here](https://github.com/BrianWendt/json-schema-md-doc/tree/master/samples/node) to see the Node example.
 
@@ -12,7 +12,7 @@ Download [JSONSchemaMarkdown.js](https://raw.githubusercontent.com/BrianWendt/js
 ## Simple Implementation
 **HTML**
 ``` html
-<script src="https://brianwendt.github.io/json-schema-md-doc/src/JSONSchemaMarkdown.js"></script>
+<script src="https://brianwendt.github.io/json-schema-md-doc/lib/JSONSchemaMarkdown.js"></script>
 ```
 **Javascript**
 ``` javascript

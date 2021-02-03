@@ -9,7 +9,7 @@
     "sourceType": "module",
     "opts": {
         "template": "node_modules/docdash",
-        "destination": "docs/documentaion/"
+        "destination": "docs/documentation/"
     },
     "docdash": {
         "sectionOrder": [

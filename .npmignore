@@ -80,4 +80,7 @@ typings/
 test/
 
 # npm ignore
-docs/
+docs/doc-support
+docs/documentation
+docs/index.html
+docs/issue.html

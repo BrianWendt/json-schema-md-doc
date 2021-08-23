@@ -51,7 +51,7 @@ class JSONSchemaMarkdown {
 
     /**
      * Shorthand method to generate markdown from JSON Schema.
-     * This is not the prefered method as errors will be more difficult to expose.
+     * This is not the preferred method as errors will be more difficult to expose.
      * @param {Object|String} schema JS object or JSON string.
      * @returns {String} generated markdown
      */
@@ -70,7 +70,7 @@ class JSONSchemaMarkdown {
             try {
                 this.schema = JSON.parse(schema);
             } catch (e) {
-                this.error('invalid json');
+                this.error('invalid json: ' + e.stack);
             }
         } else {
             this.schema = schema;
@@ -223,8 +223,8 @@ class JSONSchemaMarkdown {
         }
         if (this.notEmpty(data.exclusiveMinimum) || this.notEmpty(data.exclusiveMaximum)) {
             this.indent(level);
-            this.markdown += "Exlusive Range: ";
-            this.writeMinMaxExlusive(data.exclusiveMinimum, data.exclusiveMaximum);
+            this.markdown += "Exclusive Range: ";
+            this.writeMinMaxExclusive(data.exclusiveMinimum, data.exclusiveMaximum);
         }
         this.writeMultipleOf(data.multipleOf);
     }
@@ -280,7 +280,7 @@ class JSONSchemaMarkdown {
     }
 
     /**
-     * This method is a catch for schema types that aren't recongized.
+     * This method is a catch for schema types that aren't recognized.
      * You may want to treat anything resolving to this method as an error.
      * @param {name} name The JSON property name
      * @param {Object} data The JS data for the schema
@@ -445,7 +445,7 @@ class JSONSchemaMarkdown {
 
     /**
      * Write notation for inclusive minimum and maximum.
-     * @param {number} min Inclusive minimim
+     * @param {number} min Inclusive minimum
      * @param {number} max Inclusive maximum
      *
      */
@@ -461,11 +461,11 @@ class JSONSchemaMarkdown {
 
     /**
      * Write notation for exclusive minimum and maximum.
-     * @param {number} min Exclusive minimim
+     * @param {number} min Exclusive minimum
      * @param {number} max Exclusive maximum
      *
      */
-    writeMinMaxExlusive(min, max) {
+    writeMinMaxExclusive(min, max) {
         if (this.notEmpty(min)) {
             this.markdown += " > " + min + "\n";
         }

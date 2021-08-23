@@ -95,7 +95,6 @@ class JSONSchemaMarkdown {
         if (this.errors.length > 0) {
             return this.errors.join("\n");
         } else {
-            this.markdown += this.footer;
             return this.markdown;
         }
     }
@@ -125,7 +124,8 @@ class JSONSchemaMarkdown {
         }
         if (this.notEmpty(data.definitions)) {
             path += "/definitions";
-            this.writeHeader("definitions", level, path);
+            this.writeLine("", 0);
+            this.writeHeader("Type definitions in this schema", 1, path);
             for (var term in data.definitions) {
                 var defPath = path + this.pathDivider + term;
                 this.writeTerm(term, level);
@@ -268,7 +268,11 @@ class JSONSchemaMarkdown {
         }
 
         this.writePropertyNames(data.propertyNames, level);
-        this.writeSectionName("Properties", level, path);
+        if (level == 0) {
+            this.writeHeader("Properties", 1, path);
+        }  else {
+            this.writeSectionName("Properties", level, path);
+        }
         path += "/properties";
         for (var propName in data.properties) {
             var propPath = path + this.pathDivider + propName;
@@ -361,7 +365,11 @@ class JSONSchemaMarkdown {
      */
     writeDescription(description, level) {
         if (this.notEmpty(description)) {
-            this.writeLine("_" + description.replace("\n", "<br>") + "_", level);
+            if (!description.endsWith('.')) {
+                console.log('Description does not end with period' + description);
+                process.exit(1)
+            }
+            this.writeLine(description.replace("\n", "<br>"), level);
         }
     }
 
@@ -576,7 +584,7 @@ class JSONSchemaMarkdown {
      */
     writeSectionName(name, level = 1) {
         if (this.notEmpty(name)) {
-            this.writeLine('**_' + name + "_**", level);
+            this.writeLine('**' + name + "**", level);
         }
     }
 
@@ -588,7 +596,7 @@ class JSONSchemaMarkdown {
      */
     writeTerm(term, level) {
         if (this.notEmpty(term)) {
-            this.writeLine('**_' + term + "_**", level);
+            this.writeLine('**' + term + "**", level);
         }
     }
 
@@ -705,7 +713,10 @@ class JSONSchemaMarkdown {
      *
      */
     writeLine(text = "", level = 1) {
-        this.indent(level);
+        if (!text.startsWith("#")) {
+            // Don't indent headers
+            this.indent(level);
+        }
         this.markdown += text + "\n";
         if (level < 1) {
             this.markdown += "\n";

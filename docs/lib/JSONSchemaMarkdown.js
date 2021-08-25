@@ -531,7 +531,7 @@ class JSONSchemaMarkdown {
      */
     writePropertyName(prop, level, path, required = false) {
         this.indent(level);
-        this.markdown += '<b id="' + path + '">' + prop + '</b>';
+        this.markdown +='**' + prop + '**';
         if (required) {
             this.markdown += " `required`";
         }
@@ -547,7 +547,7 @@ class JSONSchemaMarkdown {
      */
     writeRef(ref, level) {
         if (this.notEmpty(ref)) {
-            this.writeLine("&#36;ref: [" + ref + "](" + this.refLink(ref) + ")", level);
+            this.writeLine("$ref: [" + ref + "](" + this.refLink(ref) + ")", level);
         }
     }
 
@@ -596,7 +596,7 @@ class JSONSchemaMarkdown {
      */
     writeTerm(term, level) {
         if (this.notEmpty(term)) {
-            this.writeLine('**' + term + "**", level);
+            this.writeLine('### ' + term, level);
         }
     }
 
@@ -729,8 +729,8 @@ class JSONSchemaMarkdown {
      * @returns {String}
      */
     refLink(ref) {
-        if (ref[0] !== '#' && ref.substring(0, 4).toLowerCase() !== "http") {
-            ref = '#' + this.slugify(ref);
+        if (ref[0] !== ref.substring(0, 4).toLowerCase() !== "http") {
+            ref = this.slugify(ref, true);
         }
         return ref;
     }
@@ -740,14 +740,22 @@ class JSONSchemaMarkdown {
      * @param {String} string
      * @returns {String}
      */
-    slugify(string) {
-        return string.toString().toLowerCase()
+    slugify(string, extraReplace = false) {
+        const refString = string.toString().toLowerCase()
                 .replace(/\s+/g, '-') // Replace spaces with -
                 .replace(/&/g, '-and-') // Replace & with "-and-"
-                .replace(/[^\w-.]+/g, '') // Remove all non-word characters
+                .replace(/[^\w-.]+/g, '/') // Remove all non-word characters
                 .replace(/--+/g, '-') // Replace multiple - with single -
                 .replace(/^-+/, '') // Trim - from start of text
-                .replace(/-+$/, ''); // Trim - from end of text
+                .replace(/-+$/, '') // Trim - from end of text
+        if(extraReplace) {
+        return refString
+                .replace(/json/g, "md")
+                .replace("/definitions/", "#")
+                .replace("../../", "../")
+                .replace("/type/", "/types/")
+                }
+        return refString
     }
 
     /**

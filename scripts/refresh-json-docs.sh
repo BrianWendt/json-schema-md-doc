@@ -36,11 +36,11 @@ node samples/node/docgen.js -i ../OpenMetadata/catalog-rest-service/src/main/res
 
 # Change camel case markdown file name to snake case
 cd ../OpenMetadata/docs/openmetadata-apis/schemas/types/
-mv auditLog.md audit-log.md
-mv dailyCount.md daily-count.md
-mv entityReference.md entity-reference.md
-mv entityUsage.md entity-usage.md
-mv jdbcConnection.md jdbc-connection.md
-mv tagLabel.md tag-label.md
-mv usageDetails.md usage-details.md
+mv auditLog.md auditlog.md
+mv dailyCount.md dailycount.md
+mv entityReference.md entityreference.md
+mv entityUsage.md entityusage.md
+mv jdbcConnection.md jdbcconnection.md
+mv tagLabel.md taglabel.md
+mv usageDetails.md usagedetails.md
 rm collectionDescriptor.md

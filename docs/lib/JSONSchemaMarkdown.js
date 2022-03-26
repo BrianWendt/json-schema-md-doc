@@ -550,7 +550,7 @@ class JSONSchemaMarkdown {
      */
     writePath(level, path) {
         if (this.notEmpty(path)) {
-            this.writeLine('<i id="' + path + '">path: ' + path + '</i>', level);
+            this.writeLine('<i id="' + path.replace('#', '') + '">path: ' + path + '</i>', level);
         }
     }
 

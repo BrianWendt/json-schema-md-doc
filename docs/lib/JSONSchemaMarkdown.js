@@ -70,7 +70,7 @@ class JSONSchemaMarkdown {
             try {
                 this.schema = JSON.parse(schema);
             } catch (e) {
-                this.error('invalid json: ' + e.stack);
+                this.error('invalid json: ' + e.message);
             }
         } else {
             this.schema = schema;

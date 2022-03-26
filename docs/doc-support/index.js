@@ -12,6 +12,9 @@ $(document).ready(function(){
 });
 
 function run(){
+    if($input.val().length < 1){
+        return $output.val("Paste your schema");
+    }
     Doc.load($input.val());
     $output.val(Doc.generate());
     if(Doc.schema !== null){
@@ -21,6 +24,4 @@ function run(){
     } else {
         $download.addClass("d-none");
     }
-    //$input.height( $input[0].scrollHeight );
-    //$output.height( $output[0].scrollHeight );
 }

@@ -10,6 +10,15 @@ Download [JSONSchemaMarkdown.js](https://raw.githubusercontent.com/BrianWendt/js
 **NOTE:** JSONSchemaMarkdown.js supports [json-schema.org](https://json-schema.org/) `draft-7`. Previous drafts may not generate documentation correctly.
 
 ## Simple Implementation
+**NPM Project**
+```
+npm install json-schema-md-doc
+```
+
+```javascript
+import { JSONSchemaMarkdown } from "json-schema-md-doc";
+```
+or
 **HTML**
 ``` html
 <script src="https://brianwendt.github.io/json-schema-md-doc/lib/JSONSchemaMarkdown.js"></script>

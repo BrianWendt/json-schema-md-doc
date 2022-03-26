@@ -254,7 +254,7 @@ class JSONSchemaMarkdown {
      * @param {String} path String describing the path of the property
      */
     typeObject(name, data, level, path) {
-        const required = (this.empty(data.required)) ? [] : data.required;
+        const required = data.required ?? [];
         if (this.empty(data.properties)) {
             throw "`object` missing properties at " + path;
         }
@@ -287,7 +287,7 @@ class JSONSchemaMarkdown {
      * @param {String} path String describing the path of the property
      */
     typeUnknown(name, data, level, path) {
-        console.log('unknown prop type "', data.type, '" at ' + path, data);
+        console.error('unknown prop type "', data.type, '" at ' + path, data);
     }
 
     /**

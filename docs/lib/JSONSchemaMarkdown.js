@@ -88,7 +88,6 @@ class JSONSchemaMarkdown {
             try {
                 this.generateChildren("", this.schema, 0, "#");
             } catch (e) {
-                console.log(e);
                 this.error(e.toString());
             }
         }

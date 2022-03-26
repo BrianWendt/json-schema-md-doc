@@ -538,7 +538,7 @@ class JSONSchemaMarkdown {
      */
     writeRef(ref, level) {
         if (this.notEmpty(ref)) {
-            this.writeLine("&#36;ref: [" + ref + "](" + this.refLink(ref) + ")", level);
+            this.writeLine("&#36;ref: [" + this.escapeLink(ref) + "](" + this.refLink(ref) + ")", level);
         }
     }
 
@@ -768,6 +768,14 @@ class JSONSchemaMarkdown {
      */
     error(error) {
         this.errors.push(error);
+    }
+
+    /**
+     * Escape string for MD link
+     * @param {String} value 
+     */
+    escapeLink(value){
+        return value.replace('$', '\\$'); //$ in [] breaks markdown 
     }
 }
 ;

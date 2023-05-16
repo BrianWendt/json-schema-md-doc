@@ -255,9 +255,7 @@ class JSONSchemaMarkdown {
      */
     typeObject(name, data, level, path) {
         const required = data.required ?? [];
-        if (this.empty(data.properties)) {
-            throw "`object` missing properties at " + path;
-        }
+        const properties = data.properties || {};
         this.writeAdditionalProperties(data.additionalProperties, level);
 
         if (this.notEmpty(data.minProperties) || this.notEmpty(data.maxProperties)) {
@@ -269,9 +267,9 @@ class JSONSchemaMarkdown {
         this.writePropertyNames(data.propertyNames, level);
         this.writeSectionName("Properties", level, path);
         path += "/properties";
-        for (var propName in data.properties) {
+        for (var propName in properties) {
             var propPath = path + this.pathDivider + propName;
-            var property = data.properties[propName];
+            var property = properties[propName];
             var isRequired = (required.indexOf(propName) > -1);
             this.writePropertyName(propName, level + 1, propPath, isRequired);
             this.generateChildren(propName, property, level + 2, propPath);

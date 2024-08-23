@@ -19,7 +19,7 @@
     "homepage": "https://brianwendt.github.io/json-schema-md-doc",
     "public": true,
     "dependencies": {
-        "docdash": "^1.1.0",
-        "jsdoc": "^3.6.10"
+        "docdash": "^2.0.2",
+        "jsdoc": "^4.0.3"
     }
 }

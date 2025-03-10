@@ -6,7 +6,7 @@
     "keywords": [
         "json-schema"
     ],
-    "version": "1.0.0",
+    "version": "2.0.0",
     "license": "See LICENSE file",
     "repository": {
         "type": "git",

@@ -14,6 +14,7 @@
     },
     "scripts": {
         "doc": "./node_modules/.bin/jsdoc -R ./README.md -c ./scripts/jsdoc_config.json",
+        "make-common-js": "node ./scripts/make_common_js.js",
         "npm-fix": "node ./scripts/npm_fix.js",
     },
     "homepage": "https://brianwendt.github.io/json-schema-md-doc",

@@ -9,16 +9,16 @@ npm i json-schema-md-doc
 ```
 
 ## Load the Module
-First we're going to require a the `JSONSchemaMarkdown` module and the File System (`fs`) module; We'll also load in the `package.json` file for use later.
+First we're going to require a the `JSONSchemaMarkdownDoc` module and the File System (`fs`) module; We'll also load in the `package.json` file for use later.
 ``` javascript
-const {JSONSchemaMarkdown} = require('json-schema-md-doc');
+const {JSONSchemaMarkdownDoc} = require('json-schema-md-doc');
 const fs = require("fs");
 const package = require("../../package.json");
 ```
 ## Extend
-We're going to make a new class that extends the `JSONSchemaMarkdown` class.
+We're going to make a new class that extends the `JSONSchemaMarkdownDoc` class.
 ``` javascript
-class MyDoccer extends JSONSchemaMarkdown {
+class MyDoccer extends JSONSchemaMarkdownDoc {
     constructor(){
         super();
         this.footer += " _" + (new Date()) + "_";

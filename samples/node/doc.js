@@ -1,9 +1,9 @@
-//const {JSONSchemaMarkdown} = require('json-schema-md-doc');
-const {JSONSchemaMarkdown} = require('../../docs/lib/JSONSchemaMarkdown');
+//const {JSONSchemaMarkdownDoc} = require('json-schema-md-doc');
+const {JSONSchemaMarkdownDoc} = require('../../docs/lib/JSONSchemaMarkdownDoc');
 const fs = require("fs");
 const package = require("../../package.json");
 
-class MyDoccer extends JSONSchemaMarkdown {
+class MyDoccer extends JSONSchemaMarkdownDoc {
     constructor(){
         super();
         this.footer += " _" + (new Date()) + "_";

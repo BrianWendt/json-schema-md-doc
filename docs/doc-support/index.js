@@ -3,7 +3,7 @@ $(document).ready(function(){
     $input = $('#input');
     $output = $('#output');
     $download = $('#download');
-    Doc = new JSONSchemaMarkdown();
+    Doc = new JSONSchemaMarkdownDoc();
     run();
     $input.on("input change", run);
     $output.focus(function () {

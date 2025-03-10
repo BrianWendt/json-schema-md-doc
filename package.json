@@ -14,7 +14,7 @@
     },
     "scripts": {
         "doc": "./node_modules/.bin/jsdoc -R ./README.md -c ./scripts/jsdoc_config.json",
-        "npm": "node ./scripts/npm.js"
+        "npm-fix": "node ./scripts/npm_fix.js",
     },
     "homepage": "https://brianwendt.github.io/json-schema-md-doc",
     "public": true,

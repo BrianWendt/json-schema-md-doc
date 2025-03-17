@@ -5,53 +5,48 @@ Files
  - [schema.md](./schema.md) - output
 ## NPM Install
 ``` shell
-npm i json-schema-md-doc
+npm i json-schema-doc
 ```
 
 ## Load the Module
-First we're going to require a the `JSONSchemaMarkdownDoc` module and the File System (`fs`) module; We'll also load in the `package.json` file for use later.
+First we're going to require a the `JSONSchemaMarkdownDoc` module and the File System (`fs`) module.
 ``` javascript
-const {JSONSchemaMarkdownDoc} = require('json-schema-md-doc');
-const fs = require("fs");
-const package = require("../../package.json");
+import {JSONSchemaMarkdownDoc} from 'json-schema-doc';
+import fs from 'fs';
 ```
 ## Extend
 We're going to make a new class that extends the `JSONSchemaMarkdownDoc` class.
 ``` javascript
 class MyDoccer extends JSONSchemaMarkdownDoc {
-    constructor(){
-        super();
+    constructor(schema){
+        super(schema);
         this.footer += " _" + (new Date()) + "_";
     }
-};
+}
 ```
 For this example we're just going to simply append a timestamp to the footer.
 ## Generate Documentation Markdown
-Instantiate your new class.
+Get the JSON Schema as a string
 ``` javascript
-const Doccer = new MyDoccer();
+const schema = fs.readFileSync('./samples/node/schema.json', 'utf8');
 ```
-Get the JSON Schema file and load it.
+Instantiate your new class with the json string.
 ``` javascript
-var json = require('./schema.json');
+const Doccer = new MyDoccer(schema);
 ```
-You can change some properties at this point.
+
+Generate the markdown.
 ``` javascript
-json['$comment'] = 'version ' + package.version;
-```
-Load the JSON Schema into the instance and then generate the markdown.
-``` javascript
-Doccer.load(json);
 Doccer.generate();
 ```
-`Doccer.markdown` now contains the completed documentation.
+`Doccer.response` now contains the completed documentation.
 
 So now we'll save it to `schema.md` (after checking for errors).
 ``` javascript
 if(Doccer.errors.length > 0){
     console.log('errors', Doccer.errors);
 } else {
-    fs.writeFile('./schema.md', Doccer.markdown, function(err){
+    fs.writeFile('./schema.md', Doccer.response, function(err){
         console.log(err || "No errors writing schema.md");
     });
 }

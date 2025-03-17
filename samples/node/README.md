@@ -5,13 +5,13 @@ Files
  - [schema.md](./schema.md) - output
 ## NPM Install
 ``` shell
-npm i json-schema-doc
+npm i json-schema-doc-ts
 ```
 
 ## Load the Module
 First we're going to require a the `JSONSchemaMarkdownDoc` module and the File System (`fs`) module.
 ``` javascript
-import {JSONSchemaMarkdownDoc} from 'json-schema-doc';
+import {JSONSchemaMarkdownDoc} from 'json-schema-doc-ts';
 import fs from 'fs';
 ```
 ## Extend

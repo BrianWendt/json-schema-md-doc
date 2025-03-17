@@ -1,5 +1,5 @@
 
-import {JSONSchemaMarkdownDoc as JSONSchemaMarkdownDocBase } from 'json-schema-doc';
+import {JSONSchemaMarkdownDoc as JSONSchemaMarkdownDocBase } from 'json-schema-doc-ts';
 
 export class JSONSchemaMarkdownDoc extends JSONSchemaMarkdownDocBase {
     constructor(schema){

@@ -1,4 +1,4 @@
-import {JSONSchemaMarkdownDoc} from 'json-schema-doc';
+import {JSONSchemaMarkdownDoc} from 'json-schema-doc-ts';
 import fs from 'fs';
 
 class MyDoccer extends JSONSchemaMarkdownDoc {

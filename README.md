@@ -14,11 +14,11 @@ This repository implements that module and uses webpack to create a es2015 compa
 ## es6/Node Implementation
 **NPM Project**
 ```
-npm install json-schema-doc
+npm install json-schema-doc-ts
 ```
 
 ```javascript
-import { JSONSchemaMarkdownDoc } from "json-schema-doc";
+import { JSONSchemaMarkdownDoc } from "json-schema-doc-ts";
 ```
 or
 **HTML**

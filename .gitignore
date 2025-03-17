@@ -1,6 +1,2 @@
 # Dependency directories
 node_modules/
-
-# Local Dev Files
-*.bat
-test/

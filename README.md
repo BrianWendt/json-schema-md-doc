@@ -3,25 +3,27 @@
 ## Generate markdown documentation for JSON Schemas
 Try it out at [brianwendt.github.io/json-schema-md-doc](https://brianwendt.github.io/json-schema-md-doc)
 
-Download [JSONSchemaMarkdownDoc.js](https://raw.githubusercontent.com/BrianWendt/json-schema-md-doc/master/docs/lib/JSONSchemaMarkdownDoc.js)
-
 [Click here](https://github.com/BrianWendt/json-schema-md-doc/tree/master/samples/node) to see the Node example.
 
 **NOTE:** JSONSchemaMarkdownDoc.js supports [json-schema.org](https://json-schema.org/) `draft-7`. Previous drafts may not generate documentation correctly.
 
-## Simple Implementation
+## This project has moved!
+The codebase has been migrated to [github.com/OntoDevelopment/json-schema-doc](https://github.com/OntoDevelopment/json-schema-doc)
+This repository implements that module and uses webpack to create a es2015 compatible minified JavaScript file. The browser tool and samples are kept in this repo to keep the module's repo lean. 
+
+## es6/Node Implementation
 **NPM Project**
 ```
-npm install json-schema-md-doc
+npm install json-schema-doc
 ```
 
 ```javascript
-import JSONSchemaMarkdownDoc from "json-schema-md-doc";
+import { JSONSchemaMarkdownDoc } from "json-schema-doc";
 ```
 or
 **HTML**
 ``` html
-<script src="https://brianwendt.github.io/json-schema-md-doc/lib/JSONSchemaMarkdownDoc.js"></script>
+<script src="https://brianwendt.github.io/json-schema-md-doc/json-schema-md-doc.min.js"></script>
 ```
 **Javascript**
 ``` javascript
@@ -32,31 +34,30 @@ const colors_schema = {
 	"enum": ["red", "amber", "green"]
 }
 
-// create an instance of JSONSchemaMarkdownDoc 
-const Doccer = new JSONSchemaMarkdownDoc();
-// load the schema
-Doccer.load(colors_schema);
+// create an instance of JSONSchemaMarkdownDoc and load the schema
+const Doccer = new JSONSchemaMarkdownDoc(colors_schema);
 // generate the markdown
 console.log(Doccer.generate());
 ```
 **Result**
 ``` markdown
- _Choose a color_
+_Choose a color_
 
 Type: `string`
 
-Enum Values: 
+*path: #*
 
- 1. _"red"_
- 2. _"amber"_
- 3. _"green"_
+The value is restricted to the following: 
 
-_Generated with [json-schema-md-doc](https://brianwendt.github.io/json-schema-md-doc/)_
+ 1. *"red"*
+ 2. *"amber"*
+ 3. *"green"*
+
+*Generated with [json-schema-md-doc](https://brianwendt.github.io/json-schema-md-doc/)*
 ```
-For a more complete example, [check out this JSFiddle](https://jsfiddle.net/OntoDevelopment/a0hmcndu/).
 
-## Extendabale
-You may easily extend `JSONSchemaMarkdownDoc.js` to customize the formatting of your markdown by overriding any method.
+## Extendabale in es2015 (browser)
+You may easily extend `JSONSchemaMarkdownDoc` from `json-schema-md-doc.min.js` to customize the formatting of your markdown by overriding any method.
 ``` javascript
 class MyDoccer extends JSONSchemaMarkdownDoc {
     constructor(){

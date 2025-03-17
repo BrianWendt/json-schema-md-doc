@@ -2,23 +2,20 @@
     "name": "json-schema-md-doc",
     "author": "Brian Wendt (https://github.com/BrianWendt)",
     "description": "Generate markdown documentation for JSON Schemas",
-    "main": "./docs/lib/JSONSchemaMarkdownDoc.js",
+    "type": "module",
     "keywords": [
         "json-schema"
     ],
     "version": "2.0.0",
     "license": "See LICENSE file",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/BrianWendt/json-schema-md-doc"
-    },
     "scripts": {
-        "doc": "./node_modules/.bin/jsdoc -R ./README.md -c ./scripts/jsdoc_config.json",
-        "make-common-js": "node ./scripts/make_common_js.js",
-        "npm-fix": "node ./scripts/npm_fix.js",
+        "build": "webpack"
     },
     "homepage": "https://brianwendt.github.io/json-schema-md-doc",
     "public": true,
-    "dependencies": {
+    "devDependencies": {
+        "json-schema-doc": "github:OntoDevelopment/json-schema-doc",
+        "webpack": "^5.98.0",
+        "webpack-cli": "^6.0.1"
     }
 }

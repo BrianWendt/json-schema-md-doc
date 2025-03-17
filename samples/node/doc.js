@@ -12,7 +12,7 @@ const schema = fs.readFileSync('./samples/node/schema.json', 'utf8');
 
 const Doccer = new MyDoccer(schema);
 
-const md = Doccer.generate();
+Doccer.generate();
 
 if(Doccer.errors.length > 0){
     console.log('errors', Doccer.errors);

@@ -8,7 +8,7 @@ Try it out at [brianwendt.github.io/json-schema-md-doc](https://brianwendt.githu
 **NOTE:** JSONSchemaMarkdownDoc.js supports [json-schema.org](https://json-schema.org/) `draft-7`. Previous drafts may not generate documentation correctly.
 
 ## This project has moved!
-The codebase has been migrated to [github.com/OntoDevelopment/json-schema-doc](https://github.com/OntoDevelopment/json-schema-doc)
+The codebase has been migrated to [github.com/OntoDevelopment/json-schema-doc-ts](https://github.com/OntoDevelopment/json-schema-doc-ts)
 This repository implements that module and uses webpack to create a es2015 compatible minified JavaScript file. The browser tool and samples are kept in this repo to keep the module's repo lean. 
 
 ## es6/Node Implementation
